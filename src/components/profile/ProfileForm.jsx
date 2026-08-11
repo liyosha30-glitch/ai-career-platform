@@ -23,16 +23,6 @@ const ProfileForm = () => {
 
     return (
         <>
-            <Avatar
-                src={user.image}
-                alt={user?.firstName}
-                sx={{
-                    width: 90,
-                    height: 90,
-                    mx: "auto",
-                    mb: 2
-                }}
-            >{user?.firstName?.charAt(0)}</Avatar>
             <Box
                 component="form"
                 onSubmit={

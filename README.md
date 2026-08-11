@@ -109,6 +109,17 @@ http://localhost:5173
 * Career dashboard enhancements
 * AI-assisted career guidance
 
+## Screenshots
+
+### Login
+![Login](public/screenshots/login.png)
+
+### Dashboard
+![Dashboard](public/screenshots/dashboard.png)
+
+### Profile
+![Profile](public/screenshots/profile.png)
+
 ## Author
 
 Liyosha Chandrasekaran
