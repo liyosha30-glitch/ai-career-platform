@@ -1,84 +1,75 @@
 import {
-    AppBar,
-    Toolbar,
-    Typography,
     Avatar,
+    Badge,
     Box,
-    Button
+    IconButton,
+    InputAdornment,
+    TextField,
+    Toolbar,
+    Typography
 } from "@mui/material";
+import { NotificationsNone, Search } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-
 const Header = () => {
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
+    const firstName = user?.firstName || "there";
 
     return (
-        <Toolbar>
-            <Typography
-                variant="h6"
-                sx={{ flexGrow: 1 }}
-            >
-                🚀 AI Career Platform
-            </Typography>
+        <Toolbar sx={{ minHeight: "72px !important", px: "24px !important" }}>
+            <TextField
+                size="small"
+                placeholder="Search anything..."
+                sx={{
+                    width: { xs: 220, md: 370 },
+                    "& .MuiOutlinedInput-root": {
+                        borderRadius: 2.5,
+                        bgcolor: "#faf9fd",
+                        "& fieldset": { borderColor: "#eeeaf5" }
+                    }
+                }}
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Search sx={{ color: "#6d6980" }} />
+                        </InputAdornment>
+                    )
+                }}
+            />
+
+            <Box sx={{ flexGrow: 1 }} />
+
+            <IconButton sx={{ mr: 1.5 }}>
+                <Badge badgeContent={3} color="primary">
+                    <NotificationsNone />
+                </Badge>
+            </IconButton>
 
             <Box
+                onClick={() => navigate("/profile")}
                 sx={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 2
+                    gap: 1.2,
+                    cursor: "pointer",
+                    pl: 1,
+                    borderLeft: "1px solid #eeeaf5"
                 }}
             >
-                <Box>
-                    <Typography fontWeight={600}>
-                        {user?.firstName}
-                    </Typography>
-
-                    <Typography
-                        variant="caption"
-                    >
+                <Avatar sx={{ width: 40, height: 40, bgcolor: "#7048e8" }}>
+                    {firstName.charAt(0).toUpperCase()}
+                </Avatar>
+                <Box sx={{ display: { xs: "none", sm: "block" } }}>
+                    <Typography variant="body2" fontWeight={750}>{firstName}</Typography>
+                    <Typography variant="caption" color="text.secondary">
                         {user?.role || "Frontend Developer"}
                     </Typography>
-
                 </Box>
-
-                <Avatar>
-                    {user?.firstName?.charAt(0)}
-                </Avatar>
-
-                <Button
-                variant="outlined"
-                    color="inherit"
-                    size="small"
-                    onClick={() => navigate("/profile")}
-                    sx={{
-                        ml: 2,
-                        borderColor: "white",
-                        color: "white"
-                    }}
-                >
-                    Profile
-                </Button>
-
-                <Button
-                    variant="outlined"
-                    color="inherit"
-                    size="small"
-                    onClick={logout}
-                    sx={{
-                        ml: 2,
-                        borderColor: "white",
-                        color: "white"
-                    }}
-                >
-                    Logout
-                </Button>
-
             </Box>
         </Toolbar>
-    )
-}
-
+    );
+};
 
 export default Header;
